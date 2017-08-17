@@ -15,6 +15,10 @@ html {
   font-size: 87.5%;
 }
 
+body {
+  width: 440px;
+}
+
 .my-progress-text {
   color: #000;
   position: absolute;

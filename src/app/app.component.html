@@ -1,44 +1,47 @@
-<div class="container-fluid">
-  <h3 class="m-2 text-center">Time to go!</h3>
+<div class="container">
+  <h2 class="m-2 text-center">Time to go!</h2>
   <div class="card">
     <div class="card-header bg-warning" id="sat_holiday" hidden>
       <fa name="exclamation-triangle"></fa> <strong class="has-warning form-control-warning">Feriado no próximo Sábado!</strong>
     </div>
 
-    <form class="card-block bg-faded">
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Horário base:</label>
-        <div class="col-sm-3 col-form-label">
+    <form class="card-block bg-faded pb-0">
+      <div class="form-group row no-gutters">
+        <label class="col-5 col-form-label">Carga horária diária:</label>
+        <div class="col-3 col-form-label sr-only">
           <span id="base_time">00:00</span>
           <button type="button" class="btn btn-link btn-sm" id="edit_base_time"><fa name="pencil-square-o"></fa></button>
         </div>
-        <div class="col-sm-4 form-inline">
-          <input class="form-control" type="time" id="arrived_at" />
+        <div class="col-5 d-flex">
+          <input class="form-control" type="number" min="0" max="23" id="arrived_at" style="width: 6rem;" />
+          <span class="col-form-label ml-1 mr-1">:</span>
+          <input class="form-control" type="number" min="0" max="59" id="arrived_at" style="width: 6rem;" />
+          <!-- <input class="form-control" type="time" id="arrived_at" /> -->
           <button type="button" class="btn btn-link btn-sm" id="save_base_time"><fa name="floppy-o"></fa></button>
         </div>
       </div>
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Tolerância:</label>
-        <div class="col-sm-3 col-form-label">
+      <div class="form-group row no-gutters">
+        <label class="col-5 col-form-label">Tolerância:</label>
+        <div class="col-3 col-form-label sr-only">
           <span id="base_time">00:00</span>
           <button type="button" class="btn btn-link btn-sm" id="edit_tolerance_time"><fa name="pencil-square-o"></fa></button>
         </div>
-        <div class="col-sm-4 form-inline">
-          <input class="form-control" type="time" id="arrived_at" />
+        <div class="col-3 d-flex">
+          <input class="form-control" type="number" min="0" max="20" id="arrived_at" style="width: 6rem;" />
           <button type="button" class="btn btn-link btn-sm" id="save_tolerance_time"><fa name="floppy-o"></fa></button>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group row no-gutters">
         <label class="form-check-label">
           <input class="form-check-input" type="checkbox" name="sat_holiday_check" id="sat_holiday_check">
           Verificar feriados aos sábados?
         </label>
       </div>
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Entrada:</label>
-        <div class="col form-inline">
-          <input class="form-control mr-sm-2" type="time" id="arrived_at" />
-          <button type="submit" class="btn btn-primary mr-sm-2" id="calc_button">Calcular</button>
+      <div class="form-group row no-gutters">
+        <div class="col d-flex">
+          <label class="col-form-label mr-2">Entrada:</label>
+          <input class="form-control mr-2" type="time" id="arrived_at" style="width: 9rem;" />
+          <button type="submit" class="btn btn-primary mr-2" id="calc_button">Calcular</button>
           <button type="button" class="btn btn-danger" id="clean_button">Limpar</button>
         </div>
       </div>
@@ -63,7 +66,7 @@
           <div class="float-right font-weight-bold" id="max_time">00:00</div>
         </div>
       </div>
-      <div class="alert alert-danger">
+      <div class="alert alert-danger mb-0">
         <div class="clearfix">
           <div class="float-left">Máximo de Extra:</div>
           <div class="float-right font-weight-bold" id="max_extra_time">00:00</div>
