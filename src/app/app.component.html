@@ -12,14 +12,14 @@
       <div class="form-group row no-gutters" *ngIf="showSettings" [ngClass]="{'has-danger':workTimeCheck.invalid}">
         <label class="col-5 col-form-label">Carga horária diária:</label>
         <div class="col-5 d-flex">
-          <input class="form-control" type="text" mask="00:00" required appTimeValidator="HH:mm" [(ngModel)]="settings.workTime" name="settings.workTime" #workTimeCheck="ngModel" style="width: 6rem;" />
+          <input class="form-control" type="text" mask="00:00" required appTimeValidator="HH:mm" [(ngModel)]="settings.workTime" name="settings.workTime" #workTimeCheck="ngModel" style="width: 5rem;" />
           <button type="button" class="btn btn-link btn-sm" (click)="saveSettings()" [disabled]="workTimeCheck.invalid"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
       <div class="form-group row no-gutters" *ngIf="showSettings" [ngClass]="{'has-danger':toleranceCheck.invalid}">
         <label class="col-5 col-form-label">Tolerância:</label>
         <div class="col-3 d-flex">
-          <input class="form-control" type="text" mask="00" required appTimeValidator="mm" [(ngModel)]="settings.toleranceTime" name="settings.toleranceTime" #toleranceCheck="ngModel" style="width: 6rem;" />
+          <input class="form-control" type="text" mask="00" required appTimeValidator="mm" [(ngModel)]="settings.toleranceTime" name="settings.toleranceTime" #toleranceCheck="ngModel" style="width: 5rem;" />
           <button type="button" class="btn btn-link btn-sm" (click)="saveSettings()" [disabled]="toleranceCheck.invalid"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
@@ -32,7 +32,7 @@
       <div class="form-group row no-gutters" [ngClass]="{'has-danger':arrivedTimeCheck.invalid}">
         <div class="col d-flex">
           <label class="col-form-label mr-2">Entrada: </label>
-          <input class="form-control mr-2" type="text" mask="00:00" [(ngModel)]="arrivedTime" name="arrivedTime" (keyup.enter)="saveArrivedTime()" #arrivedTimeCheck="ngModel" required appTimeValidator="HH:mm" style="width: 9rem;" />
+          <input class="form-control mr-2" type="text" mask="00:00" [(ngModel)]="arrivedTime" name="arrivedTime" (keyup.enter)="saveArrivedTime()" #arrivedTimeCheck="ngModel" required appTimeValidator="HH:mm" style="width: 5rem;" />
           <button type="submit" class="btn btn-primary mr-2" [disabled]="clockForm.invalid">Calcular</button>
           <button type="button" class="btn btn-danger" *ngIf="showSettings" (click)="resetSettings()">Limpar</button>
         </div>
@@ -41,7 +41,7 @@
     </form>
 
     <div class="card-block">
-      <div class="alert alert-info" id="min_time_container">
+      <div class="alert alert-info" id="min_time_container" *ngIf="hasToleranceTime">
         <div class="clearfix">
           <div class="float-left">Mínimo:</div>
           <div class="float-right font-weight-bold" id="min_time">{{minimumClockOut}}</div>
@@ -53,7 +53,7 @@
           <div class="float-right font-weight-bold" id="regular_time">{{normalClockOut}}</div>
         </div>
       </div>
-      <div class="alert alert-warning" id="max_time_container">
+      <div class="alert alert-warning" id="max_time_container" *ngIf="hasToleranceTime">
         <div class="clearfix">
           <div class="float-left">Máximo:</div>
           <div class="float-right font-weight-bold" id="max_time">{{maximumClockOut}}</div>
@@ -72,8 +72,8 @@
   <div class="row mt-3 mb-3">
     <div class="col">
       <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info p-4" role="progressbar" style="width: 55%;"></div>
-        <span class="my-progress-text text-center w-100 p-3">4h11min para o mínimo</span>
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info p-4" role="progressbar" [ngStyle]="{'width':remainingClockOut.relativeWidth}"></div>
+        <span class="my-progress-text text-center w-100 p-3">{{remainingClockOut.remainingTime}}</span>
       </div>
     </div>
   </div>

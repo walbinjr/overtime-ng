@@ -40,4 +40,22 @@ export class ClockService {
     this.saveClock(this.clock);
     return this.clock;
   }
+
+  getRemainingClockOut(): { remainingTime: string; relativeWidth: string; } {
+    let timeNow: moment.Moment = moment();
+    let clockOut: moment.Moment = moment(this.clock.normalClockOut);
+    let remainingTime: moment.Duration = moment.duration(clockOut.diff(timeNow));
+    let totalTime: moment.Duration = moment.duration(this.settings.workTime);
+    let relativeWidth: string = Math.floor((remainingTime.asMinutes() / totalTime.asMinutes()) * 100) + '%';
+    let remainingTimeFormatted = '';
+    if(remainingTime.hours() > 0) {
+      remainingTimeFormatted += remainingTime.hours() + 'h';
+    }
+    remainingTimeFormatted += remainingTime.minutes() + 'min';
+
+    return {
+      remainingTime: remainingTimeFormatted,
+      relativeWidth: relativeWidth
+    };
+  }
 }

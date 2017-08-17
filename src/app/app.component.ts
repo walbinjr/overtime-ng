@@ -16,15 +16,18 @@ declare var $: any;
   providers: [SettingsDataService, ClockService]
 })
 export class AppComponent {
-  showSettings = false;
+  showSettings: boolean = false;
   settings: Settings = new Settings();
   clock: Clock = new Clock();
   arrivedTime: string = '';
+  remainingClockOut: any = {};
 
-  normalClockOut: string = '00:00';
-  minimumClockOut: string = '00:00';
-  maximumClockOut: string = '00:00';
-  maximumExtraTime: string = '00:00';
+  normalClockOut: string = '--:--';
+  minimumClockOut: string = '--:--';
+  maximumClockOut: string = '--:--';
+  maximumExtraTime: string = '--:--';
+
+  hasToleranceTime: boolean = false;
 
   constructor(private settingsDataService: SettingsDataService, private clockService: ClockService) {
     this.settings = this.settingsDataService.getSettings();
@@ -55,14 +58,16 @@ export class AppComponent {
   saveSettings() {
     this.settings.lastUpdate = moment().valueOf();
     this.settingsDataService.saveSettings(this.settings);
-    this.clock = this.clockService.calculateClockInOut(this.settings);
     this.loadClock();
   }
 
   loadClock() {
+    this.clock = this.clockService.calculateClockInOut(this.settings);
     this.normalClockOut = moment(this.clock.normalClockOut).format('HH:mm');
     this.minimumClockOut = moment(this.clock.minimumClockOut).format('HH:mm');
     this.maximumClockOut = moment(this.clock.maximumClockOut).format('HH:mm');
     this.maximumExtraTime = moment(this.clock.maximumExtraTime).format('HH:mm');
+    this.remainingClockOut = this.clockService.getRemainingClockOut();
+    this.hasToleranceTime = parseInt(this.settings.toleranceTime) > 0;
   }
 }
