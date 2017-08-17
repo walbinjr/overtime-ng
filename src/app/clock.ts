@@ -15,4 +15,5 @@ export class ClockRemaining {
   remainingTimeProgressWidth: string;
   remainingTimeProgressEnabled: boolean = false;
   remainingTimeProgressColor: string = '';
+  remainingTimeEnabled: boolean = false;
 }

@@ -20,6 +20,7 @@ export class AppComponent {
   settings: Settings = new Settings();
   clock: Clock = new Clock();
   arrivedTime: string = '';
+  lastUpdateTime: string = '';
   remainingClockOut: any = {};
 
   normalClockOut: string = '--:--';
@@ -34,6 +35,7 @@ export class AppComponent {
     this.clock = this.clockService.getClock();
     if(this.settings.arrivedTime) {
       this.arrivedTime = moment(this.settings.arrivedTime).format('HH:mm');
+      this.lastUpdateTime = moment(this.settings.lastUpdate).format('DD/MM/YY HH:mm');
       this.loadClock();
     }
   }

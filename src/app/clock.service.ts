@@ -83,13 +83,15 @@ export class ClockService {
 
     console.log(tolerance.asMinutes());
     console.log(remainingTime.asMinutes());
-    // console.log(remainingTimeForMinimum.asMinutes());
-    // console.log(remainingTimeForMaximum.asMinutes());
+    console.log(remainingTimeForMinimum.asMinutes());
+    console.log(remainingTimeForMaximum.asMinutes());
+    console.log(remainingTimeForMaximumExtraTime.asMinutes());
     console.log(totalTime.asMinutes());
 
     this.clockRemaining.remainingTimeText = remainingTimeText;
     this.clockRemaining.remainingTimeProgressWidth = remainingTimeProgressWidth;
     this.clockRemaining.remainingTimeProgressColor = remainingTimeProgressColor;
+    this.clockRemaining.remainingTimeEnabled = (remainingTimeForMaximumExtraTime.asMinutes() > 0) ? true : false;
 
     console.log(this.clockRemaining);
 

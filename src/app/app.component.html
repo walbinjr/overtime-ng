@@ -1,11 +1,15 @@
 <div class="container">
   <div class="clearfix">
     <h2 class="m-2 text-center float-left">Time to go!</h2>
-    <button type="button" class="mt-3 float-right btn btn-secondary btn-sm" (click)="toggleSettings($event)" [ngClass]="{'active':showSettings}">Configurações <i class="fa fa-cog"></i></button>
+    <button type="button" class="mt-3 float-right btn btn-secondary btn-sm" (click)="toggleSettings($event)" [ngClass]="{'active':showSettings}">Configurações</button>
   </div>
   <div class="card">
     <div class="card-header bg-warning" id="sat_holiday" hidden>
-      <i class="fa fa-exclamation-triangle"></i> <strong class="has-warning form-control-warning">Feriado no próximo Sábado!</strong>
+      <strong class="has-warning form-control-warning">Feriado no próximo Sábado!</strong>
+    </div>
+
+    <div class="card-header bg-danger" id="sat_holiday" *ngIf="!remainingClockOut.remainingTimeEnabled">
+      <strong class="has-danger form-control-danger text-white">Horário definido em {{lastUpdateTime}}!</strong>
     </div>
 
     <form class="card-block bg-faded pb-0" #clockForm="ngForm" (submit)="saveArrivedTime()">
@@ -13,14 +17,12 @@
         <label class="col-5 col-form-label">Carga horária diária:</label>
         <div class="col-5 d-flex">
           <input tabindex="1" class="form-control" type="text" mask="00:00" required appTimeValidator="HH:mm" [(ngModel)]="settings.workTime" name="settings.workTime" #workTimeCheck="ngModel" style="width: 5rem;" />
-          <button type="button" class="btn btn-link btn-sm" (click)="saveSettings()" [disabled]="workTimeCheck.invalid"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
       <div class="form-group row no-gutters" *ngIf="showSettings" [ngClass]="{'has-danger':toleranceCheck.invalid}">
         <label class="col-5 col-form-label">Tolerância:</label>
         <div class="col-3 d-flex">
           <input tabindex="2" class="form-control" type="text" mask="00" required appTimeValidator="mm" [(ngModel)]="settings.toleranceTime" name="settings.toleranceTime" #toleranceCheck="ngModel" style="width: 5rem;" />
-          <button type="button" class="btn btn-link btn-sm" (click)="saveSettings()" [disabled]="toleranceCheck.invalid"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
       <div class="form-group row no-gutters" *ngIf="showSettings">
@@ -39,7 +41,7 @@
       </div>
     </form>
 
-    <div class="card-block">
+    <div class="card-block" *ngIf="remainingClockOut.remainingTimeEnabled">
       <div class="alert alert-info" id="min_time_container" *ngIf="hasToleranceTime">
         <div class="clearfix">
           <div class="float-left">Mínimo:</div>
@@ -68,7 +70,7 @@
 
   </div>
 
-  <div class="row mt-3 mb-3">
+  <div class="row mt-3 mb-3" *ngIf="remainingClockOut.remainingTimeEnabled">
     <div class="col">
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated p-4" role="progressbar" [ngClass]="remainingClockOut.remainingTimeProgressColor" [ngStyle]="{'width':remainingClockOut.remainingTimeProgressWidth}"></div>
