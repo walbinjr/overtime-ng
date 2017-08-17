@@ -1,8 +1,11 @@
 <div class="container">
-  <h2 class="m-2 text-center">Time to go!</h2>
+  <div class="clearfix">
+    <h2 class="m-2 text-center float-left">Time to go!</h2>
+    <button type="button" class="mt-3 float-right btn btn-secondary btn-sm" id="settings">Configurações <i class="fa fa-cog"></i></button>
+  </div>
   <div class="card">
     <div class="card-header bg-warning" id="sat_holiday" hidden>
-      <fa name="exclamation-triangle"></fa> <strong class="has-warning form-control-warning">Feriado no próximo Sábado!</strong>
+      <i class="fa fa-exclamation-triangle"></i> <strong class="has-warning form-control-warning">Feriado no próximo Sábado!</strong>
     </div>
 
     <form class="card-block bg-faded pb-0">
@@ -10,25 +13,25 @@
         <label class="col-5 col-form-label">Carga horária diária:</label>
         <div class="col-3 col-form-label sr-only">
           <span id="base_time">00:00</span>
-          <button type="button" class="btn btn-link btn-sm" id="edit_base_time"><fa name="pencil-square-o"></fa></button>
+          <button type="button" class="btn btn-link btn-sm" id="edit_base_time"><i class="fa fa-pencil-square-o"></i></button>
         </div>
         <div class="col-5 d-flex">
           <input class="form-control" type="number" min="0" max="23" id="arrived_at" style="width: 6rem;" />
           <span class="col-form-label ml-1 mr-1">:</span>
           <input class="form-control" type="number" min="0" max="59" id="arrived_at" style="width: 6rem;" />
           <!-- <input class="form-control" type="time" id="arrived_at" /> -->
-          <button type="button" class="btn btn-link btn-sm" id="save_base_time"><fa name="floppy-o"></fa></button>
+          <button type="button" class="btn btn-link btn-sm" id="save_base_time"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
       <div class="form-group row no-gutters">
         <label class="col-5 col-form-label">Tolerância:</label>
         <div class="col-3 col-form-label sr-only">
           <span id="base_time">00:00</span>
-          <button type="button" class="btn btn-link btn-sm" id="edit_tolerance_time"><fa name="pencil-square-o"></fa></button>
+          <button type="button" class="btn btn-link btn-sm" id="edit_tolerance_time"><i class="fa fa-pencil-square-o"></i></button>
         </div>
         <div class="col-3 d-flex">
           <input class="form-control" type="number" min="0" max="20" id="arrived_at" style="width: 6rem;" />
-          <button type="button" class="btn btn-link btn-sm" id="save_tolerance_time"><fa name="floppy-o"></fa></button>
+          <button type="button" class="btn btn-link btn-sm" id="save_tolerance_time"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
       <div class="form-group row no-gutters">
