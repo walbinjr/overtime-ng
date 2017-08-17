@@ -1,7 +1,7 @@
 <div class="container">
   <div class="clearfix">
     <h2 class="m-2 text-center float-left">Time to go!</h2>
-    <button type="button" class="mt-3 float-right btn btn-secondary btn-sm" id="settings">Configurações <i class="fa fa-cog"></i></button>
+    <button type="button" class="mt-3 float-right btn btn-secondary btn-sm" (click)="toggleSettings($event)" [ngClass]="{'active':showSettings}">Configurações <i class="fa fa-cog"></i></button>
   </div>
   <div class="card">
     <div class="card-header bg-warning" id="sat_holiday" hidden>
@@ -9,34 +9,34 @@
     </div>
 
     <form class="card-block bg-faded pb-0">
-      <div class="form-group row no-gutters">
+      <div class="form-group row no-gutters" *ngIf="showSettings">
         <label class="col-5 col-form-label">Carga horária diária:</label>
         <div class="col-3 col-form-label sr-only">
           <span id="base_time">00:00</span>
-          <button type="button" class="btn btn-link btn-sm" id="edit_base_time"><i class="fa fa-pencil-square-o"></i></button>
+          <button type="button" class="btn btn-link btn-sm" (click)="editWorkTime($event)"><i class="fa fa-pencil-square-o"></i></button>
         </div>
         <div class="col-5 d-flex">
-          <input class="form-control" type="number" min="0" max="23" id="arrived_at" style="width: 6rem;" />
+          <input class="form-control" type="number" min="0" max="23" #workTimeHour style="width: 6rem;" />
           <span class="col-form-label ml-1 mr-1">:</span>
-          <input class="form-control" type="number" min="0" max="59" id="arrived_at" style="width: 6rem;" />
+          <input class="form-control" type="number" min="0" max="59" #workTimeMinute style="width: 6rem;" />
           <!-- <input class="form-control" type="time" id="arrived_at" /> -->
-          <button type="button" class="btn btn-link btn-sm" id="save_base_time"><i class="fa fa-floppy-o"></i></button>
+          <button type="button" class="btn btn-link btn-sm" (click)="saveWorkTime($event)"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
-      <div class="form-group row no-gutters">
+      <div class="form-group row no-gutters" *ngIf="showSettings">
         <label class="col-5 col-form-label">Tolerância:</label>
         <div class="col-3 col-form-label sr-only">
           <span id="base_time">00:00</span>
-          <button type="button" class="btn btn-link btn-sm" id="edit_tolerance_time"><i class="fa fa-pencil-square-o"></i></button>
+          <button type="button" class="btn btn-link btn-sm" (click)="editToleranceTime($event)"><i class="fa fa-pencil-square-o"></i></button>
         </div>
         <div class="col-3 d-flex">
-          <input class="form-control" type="number" min="0" max="20" id="arrived_at" style="width: 6rem;" />
-          <button type="button" class="btn btn-link btn-sm" id="save_tolerance_time"><i class="fa fa-floppy-o"></i></button>
+          <input class="form-control" type="number" min="0" max="20" #toleranceMinute style="width: 6rem;" />
+          <button type="button" class="btn btn-link btn-sm" (click)="saveToleranceTime($event)"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
-      <div class="form-group row no-gutters">
+      <div class="form-group row no-gutters" *ngIf="showSettings">
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" name="sat_holiday_check" id="sat_holiday_check">
+          <input class="form-check-input" type="checkbox" #checkSaturdayHoliday (click)="saveToleranceTime($event)">
           Verificar feriados aos sábados?
         </label>
       </div>
@@ -44,8 +44,8 @@
         <div class="col d-flex">
           <label class="col-form-label mr-2">Entrada:</label>
           <input class="form-control mr-2" type="time" id="arrived_at" style="width: 9rem;" />
-          <button type="submit" class="btn btn-primary mr-2" id="calc_button">Calcular</button>
-          <button type="button" class="btn btn-danger" id="clean_button">Limpar</button>
+          <button type="button" class="btn btn-primary mr-2" (click)="saveArrivedTime()">Calcular</button>
+          <button type="button" class="btn btn-danger" *ngIf="showSettings" (click)="resetSettings()">Limpar</button>
         </div>
       </div>
     </form>

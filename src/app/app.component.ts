@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  showSettings = false;
+
+  toggleSettings(event) {
+    this.showSettings = !this.showSettings;
+  }
 }
