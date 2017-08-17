@@ -9,3 +9,10 @@ export class Clock {
     Object.assign(this, values);
   }
 }
+
+export class ClockRemaining {
+  remainingTimeText: string;
+  remainingTimeProgressWidth: string;
+  remainingTimeProgressEnabled: boolean = false;
+  remainingTimeProgressColor: string = '';
+}

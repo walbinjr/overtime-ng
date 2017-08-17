@@ -72,8 +72,8 @@
   <div class="row mt-3 mb-3">
     <div class="col">
       <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info p-4" role="progressbar" [ngStyle]="{'width':remainingClockOut.relativeWidth}"></div>
-        <span class="my-progress-text text-center w-100 p-3">{{remainingClockOut.remainingTime}}</span>
+        <div class="progress-bar progress-bar-striped progress-bar-animated p-4" role="progressbar" [ngClass]="remainingClockOut.remainingTimeProgressColor" [ngStyle]="{'width':remainingClockOut.remainingTimeProgressWidth}"></div>
+        <span class="my-progress-text text-center w-100 p-3">{{remainingClockOut.remainingTimeText}}</span>
       </div>
     </div>
   </div>
