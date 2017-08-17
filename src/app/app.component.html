@@ -8,27 +8,19 @@
       <i class="fa fa-exclamation-triangle"></i> <strong class="has-warning form-control-warning">Feriado no próximo Sábado!</strong>
     </div>
 
-    <form class="card-block bg-faded pb-0" #form="ngForm">
-      <div class="form-group row no-gutters" *ngIf="showSettings">
+    <form class="card-block bg-faded pb-0" #clockForm="ngForm" (submit)="saveArrivedTime()">
+      <div class="form-group row no-gutters" *ngIf="showSettings" [ngClass]="{'has-danger':workTimeCheck.invalid}">
         <label class="col-5 col-form-label">Carga horária diária:</label>
-        <div class="col-3 col-form-label sr-only">
-          <span id="base_time">00:00</span>
-          <button type="button" class="btn btn-link btn-sm" (click)="editWorkTime($event)"><i class="fa fa-pencil-square-o"></i></button>
-        </div>
         <div class="col-5 d-flex">
-          <input class="form-control" type="text" mask="00:00" placeholder="00:00" [(ngModel)]="settings.workTime" name="settings.workTime" style="width: 6rem;" />
-          <button type="button" class="btn btn-link btn-sm" (click)="saveSettings()"><i class="fa fa-floppy-o"></i></button>
+          <input class="form-control" type="text" mask="00:00" required appTimeValidator="HH:mm" [(ngModel)]="settings.workTime" name="settings.workTime" #workTimeCheck="ngModel" style="width: 6rem;" />
+          <button type="button" class="btn btn-link btn-sm" (click)="saveSettings()" [disabled]="workTimeCheck.invalid"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
-      <div class="form-group row no-gutters" *ngIf="showSettings">
+      <div class="form-group row no-gutters" *ngIf="showSettings" [ngClass]="{'has-danger':toleranceCheck.invalid}">
         <label class="col-5 col-form-label">Tolerância:</label>
-        <div class="col-3 col-form-label sr-only">
-          <span id="base_time">00:00</span>
-          <button type="button" class="btn btn-link btn-sm" (click)="editToleranceTime($event)"><i class="fa fa-pencil-square-o"></i></button>
-        </div>
         <div class="col-3 d-flex">
-          <input class="form-control" type="text" mask="00" placeholder="00" [(ngModel)]="settings.toleranceTime" name="settings.toleranceTime" style="width: 6rem;" />
-          <button type="button" class="btn btn-link btn-sm" (click)="saveSettings()"><i class="fa fa-floppy-o"></i></button>
+          <input class="form-control" type="text" mask="00" required appTimeValidator="mm" [(ngModel)]="settings.toleranceTime" name="settings.toleranceTime" #toleranceCheck="ngModel" style="width: 6rem;" />
+          <button type="button" class="btn btn-link btn-sm" (click)="saveSettings()" [disabled]="toleranceCheck.invalid"><i class="fa fa-floppy-o"></i></button>
         </div>
       </div>
       <div class="form-group row no-gutters" *ngIf="showSettings">
@@ -37,13 +29,14 @@
           Verificar feriados aos sábados?
         </label>
       </div>
-      <div class="form-group row no-gutters">
+      <div class="form-group row no-gutters" [ngClass]="{'has-danger':arrivedTimeCheck.invalid}">
         <div class="col d-flex">
           <label class="col-form-label mr-2">Entrada: </label>
-          <input class="form-control mr-2" type="text" mask="00:00" placeholder="00:00" [(ngModel)]="arrivedTime" name="arrivedTime" [disabled]="showSettings" (keyup.enter)="saveArrivedTime()" style="width: 9rem;" />
-          <button type="button" class="btn btn-primary mr-2" [disabled]="showSettings" (click)="saveArrivedTime()">Calcular</button>
+          <input class="form-control mr-2" type="text" mask="00:00" [(ngModel)]="arrivedTime" name="arrivedTime" (keyup.enter)="saveArrivedTime()" #arrivedTimeCheck="ngModel" required appTimeValidator="HH:mm" style="width: 9rem;" />
+          <button type="submit" class="btn btn-primary mr-2" [disabled]="clockForm.invalid">Calcular</button>
           <button type="button" class="btn btn-danger" *ngIf="showSettings" (click)="resetSettings()">Limpar</button>
         </div>
+
       </div>
     </form>
 

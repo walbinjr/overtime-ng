@@ -6,10 +6,12 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { NgxMaskModule } from 'ngx-mask';
 
 import { AppComponent } from './app.component';
+import { TimeValidatorDirective } from './time-validator.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TimeValidatorDirective
   ],
   imports: [
     BrowserModule,
