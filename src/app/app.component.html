@@ -1,20 +1,86 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo=">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="http://angularjs.blogspot.ca/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container-fluid">
+  <h3 class="m-2 text-center">Time to go!</h3>
+  <div class="card">
+    <div class="card-header bg-warning" id="sat_holiday" hidden>
+      <fa name="exclamation-triangle"></fa> <strong class="has-warning form-control-warning">Feriado no próximo Sábado!</strong>
+    </div>
 
+    <form class="card-block bg-faded">
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Horário base:</label>
+        <div class="col-sm-3 col-form-label">
+          <span id="base_time">00:00</span>
+          <button type="button" class="btn btn-link btn-sm" id="edit_base_time"><fa name="pencil-square-o"></fa></button>
+        </div>
+        <div class="col-sm-4 form-inline">
+          <input class="form-control" type="time" id="arrived_at" />
+          <button type="button" class="btn btn-link btn-sm" id="save_base_time"><fa name="floppy-o"></fa></button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Tolerância:</label>
+        <div class="col-sm-3 col-form-label">
+          <span id="base_time">00:00</span>
+          <button type="button" class="btn btn-link btn-sm" id="edit_tolerance_time"><fa name="pencil-square-o"></fa></button>
+        </div>
+        <div class="col-sm-4 form-inline">
+          <input class="form-control" type="time" id="arrived_at" />
+          <button type="button" class="btn btn-link btn-sm" id="save_tolerance_time"><fa name="floppy-o"></fa></button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" name="sat_holiday_check" id="sat_holiday_check">
+          Verificar feriados aos sábados?
+        </label>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Entrada:</label>
+        <div class="col form-inline">
+          <input class="form-control mr-sm-2" type="time" id="arrived_at" />
+          <button type="submit" class="btn btn-primary mr-sm-2" id="calc_button">Calcular</button>
+          <button type="button" class="btn btn-danger" id="clean_button">Limpar</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="card-block">
+      <div class="alert alert-info" id="min_time_container">
+        <div class="clearfix">
+          <div class="float-left">Mínimo:</div>
+          <div class="float-right font-weight-bold" id="min_time">00:00</div>
+        </div>
+      </div>
+      <div class="alert alert-success">
+        <div class="clearfix">
+          <div class="float-left">Normal:</div>
+          <div class="float-right font-weight-bold" id="regular_time">00:00</div>
+        </div>
+      </div>
+      <div class="alert alert-warning" id="max_time_container">
+        <div class="clearfix">
+          <div class="float-left">Máximo:</div>
+          <div class="float-right font-weight-bold" id="max_time">00:00</div>
+        </div>
+      </div>
+      <div class="alert alert-danger">
+        <div class="clearfix">
+          <div class="float-left">Máximo de Extra:</div>
+          <div class="float-right font-weight-bold" id="max_extra_time">00:00</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mt-3 mb-3">
+    <div class="col">
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info p-4" role="progressbar" style="width: 55%;"></div>
+        <span class="my-progress-text text-center w-100 p-3">4h11min para o mínimo</span>
+      </div>
+    </div>
+  </div>
+
+  <p>Powered by <i>@walbinjr - </i><a href="http://wbjr.me" target="_blank"><i>wbjr.me</i></a></p>
+</div>
