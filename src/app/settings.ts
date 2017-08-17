@@ -3,6 +3,7 @@ export class Settings {
   toleranceTime: string = '';
   checkSaturdayHoliday: boolean = false;
   arrivedTime: number = 0;
+  lastUpdate: number = 0;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
