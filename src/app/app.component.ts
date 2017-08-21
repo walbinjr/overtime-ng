@@ -29,14 +29,21 @@ export class AppComponent {
   maximumExtraTime: string = '--:--';
 
   hasToleranceTime: boolean = false;
+  hasSaturdayHoliday: boolean = false;
 
   constructor(private settingsDataService: SettingsDataService, private clockService: ClockService) {
     this.settings = this.settingsDataService.getSettings();
     this.clock = this.clockService.getClock();
+    this.loadSettings();
+  }
+
+  loadSettings() {
     if(this.settings.arrivedTime) {
       this.arrivedTime = moment(this.settings.arrivedTime).format('HH:mm');
       this.lastUpdateTime = moment(this.settings.lastUpdate).format('DD/MM/YY HH:mm');
       this.loadClock();
+    } else {
+      this.showSettings = true;
     }
   }
 

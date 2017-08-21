@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export class Clock {
   clockIn: number = 0;
   minimumClockOut: number = 0;
@@ -16,4 +18,8 @@ export class ClockRemaining {
   remainingTimeProgressEnabled: boolean = false;
   remainingTimeProgressColor: string = '';
   remainingTimeEnabled: boolean = false;
+  remainingTime: moment.Duration;
+  remainingTimeForMaximumExtraTime: moment.Duration;
+  remainingTimeForMinimum: moment.Duration;
+  remainingTimeForMaximum: moment.Duration;
 }
