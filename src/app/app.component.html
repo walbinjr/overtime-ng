@@ -8,21 +8,21 @@
       <strong class="has-warning form-control-warning">Feriado no próximo Sábado!</strong>
     </div>
 
-    <div class="card-header bg-danger" *ngIf="!remainingClockOut.remainingTimeEnabled && lastUpdateTime">
-      <strong class="has-danger form-control-danger text-white">Horário definido em {{lastUpdateTime}}!</strong>
+    <div class="card-header bg-danger" *ngIf="!remainingClockOut.remainingTimeEnabled && lastUpdateTime != ''">
+      <strong class="has-danger form-control-danger text-white">Horário definido {{lastUpdateTime}}!</strong>
     </div>
 
     <form class="card-block bg-faded pb-0" #clockForm="ngForm" (submit)="saveArrivedTime()">
       <div class="form-group row no-gutters" *ngIf="showSettings" [ngClass]="{'has-danger':workTimeCheck.invalid}">
         <label class="col-5 col-form-label">Carga horária diária:</label>
         <div class="col-5 d-flex">
-          <input tabindex="1" class="form-control" type="text" mask="00:00" required appTimeValidator="HH:mm" [(ngModel)]="settings.workTime" name="settings.workTime" #workTimeCheck="ngModel" style="width: 5rem;" />
+          <input tabindex="1" class="form-control" type="text" mask="00:00" required appTimeValidator="HH:mm" [(ngModel)]="settings.workTime" name="settings.workTime" #workTimeCheck="ngModel" (click)="$event.target.select()" style="width: 5rem;" />
         </div>
       </div>
       <div class="form-group row no-gutters" *ngIf="showSettings" [ngClass]="{'has-danger':toleranceCheck.invalid}">
         <label class="col-5 col-form-label">Tolerância:</label>
         <div class="col-3 d-flex">
-          <input tabindex="2" class="form-control" type="text" mask="00" required appTimeValidator="mm" [(ngModel)]="settings.toleranceTime" name="settings.toleranceTime" #toleranceCheck="ngModel" style="width: 5rem;" />
+          <input tabindex="2" class="form-control" type="text" mask="00" required appTimeValidator="mm" [(ngModel)]="settings.toleranceTime" name="settings.toleranceTime" #toleranceCheck="ngModel" (click)="$event.target.select()" style="width: 5rem;" />
         </div>
       </div>
       <div class="form-group row no-gutters" *ngIf="showSettings">
@@ -34,7 +34,7 @@
       <div class="form-group row no-gutters" [ngClass]="{'has-danger':arrivedTimeCheck.invalid}">
         <div class="col d-flex">
           <label class="col-form-label mr-2">Entrada: </label>
-          <input tabindex="3" class="form-control mr-2" type="text" mask="00:00" [(ngModel)]="arrivedTime" name="arrivedTime" #arrivedTimeCheck="ngModel" required appTimeValidator="HH:mm" style="width: 5rem;" />
+          <input tabindex="3" class="form-control mr-2" type="text" mask="00:00" [(ngModel)]="arrivedTime" name="arrivedTime" #arrivedTimeCheck="ngModel" required appTimeValidator="HH:mm" (click)="$event.target.select()" style="width: 5rem;" />
           <button type="submit" class="btn btn-primary mr-2" [disabled]="clockForm.invalid">Calcular</button>
         </div>
 
@@ -74,7 +74,7 @@
     <div class="col">
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated p-4" role="progressbar" [ngClass]="remainingClockOut.remainingTimeProgressColor" [ngStyle]="{'width':remainingClockOut.remainingTimeProgressWidth}"></div>
-        <span class="my-progress-text text-center w-100 p-3">{{remainingClockOut.remainingTimeText}}</span>
+        <span class="my-progress-text text-center font-weight-bold pt-3">{{remainingClockOut.remainingTimeText}}</span>
       </div>
     </div>
   </div>

@@ -38,9 +38,10 @@ export class AppComponent {
   }
 
   loadSettings() {
+    moment.locale('pt-br');
     if(this.settings.arrivedTime) {
       this.arrivedTime = moment(this.settings.arrivedTime).format('HH:mm');
-      this.lastUpdateTime = moment(this.settings.lastUpdate).format('DD/MM/YY HH:mm');
+      this.lastUpdateTime = moment(this.settings.lastUpdate).fromNow();
       this.loadClock();
     } else {
       this.showSettings = true;
