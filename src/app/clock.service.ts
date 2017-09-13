@@ -104,8 +104,6 @@ export class ClockService {
     this.calculateRemainingProgressWidth();
     this.calculateRemainingTimeText();
 
-    console.log(this.clockRemaining);
-
     return this.clockRemaining;
   }
 }

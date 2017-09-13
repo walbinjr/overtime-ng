@@ -8,6 +8,7 @@ import { ClockService } from './clock.service';
 import * as moment from 'moment';
 
 declare var $: any;
+declare var chrome;
 
 @Component({
   selector: 'app-root',
@@ -79,5 +80,27 @@ export class AppComponent {
     this.maximumExtraTime = moment(this.clock.maximumExtraTime).format('HH:mm');
     this.remainingClockOut = this.clockService.getRemainingClockOut();
     this.hasToleranceTime = parseInt(this.settings.toleranceTime) > 0;
+    this.startClockChrome();
+  }
+
+  startClockChrome() {
+    if(chrome && chrome.extension) {
+      console.log("chrome.extension");
+      console.log(this.remainingClockOut);
+      chrome.extension.getBackgroundPage().clearTimers();
+    } else if(chrome) {
+      console.log("chrome.web");
+      console.log(this.remainingClockOut);
+      Notification.requestPermission().then(function(result) {
+        console.log(result);
+      });
+      let notificationResetTimeOptions = {
+        tag: 'overtimeAlertResetTime',
+        icon: 'assets/images/overtime.png',
+        title: 'Horário de entrada apagado',
+        body: 'ATÉ AMANHÃ!'
+      }
+      new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
+    }
   }
 }
