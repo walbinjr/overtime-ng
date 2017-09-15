@@ -25,6 +25,18 @@ function clearTimers() {
 	clearInterval(intervalResetTime);
 	clearInterval(intervalPerm);
 }
+function startNotificationTimer() {
+	console.log('asdasdasdasdadsa');
+	notificationMinOptions = {
+		tag: 'overtimeAlertMin',
+		icon: 'assets/images/overtime.png',
+		title: '5min para o Horário Mínimo: asd',
+		body: 'ARRUME SUAS COISAS!'
+	}
+	setTimeout(function(){
+		new Notification(notificationMinOptions.title, notificationMinOptions);
+	}, 3000);
+}
 function startTimer(intervalRemains, minTime, regularTime, maxTime, maxTimeExtra, minutosExtraInMili) {
 	interval = intervalRemains;
 	var fiveMinutes = (5 * 60 * 1000);

@@ -86,21 +86,25 @@ export class AppComponent {
   startClockChrome() {
     if(chrome && chrome.extension) {
       console.log("chrome.extension");
-      console.log(this.remainingClockOut);
-      chrome.extension.getBackgroundPage().clearTimers();
+      console.log(this.remainingClockOut.remainingTime.asMilliseconds());
+      // chrome.extension.getBackgroundPage().clearTimers();
+      chrome.extension.getBackgroundPage().startNotificationTimer();
     } else if(chrome) {
-      console.log("chrome.web");
-      console.log(this.remainingClockOut);
-      Notification.requestPermission().then(function(result) {
-        console.log(result);
-      });
+    //   console.log("chrome.web");
+    //   console.log(this.remainingClockOut);
+    //   Notification.requestPermission().then(function(result) {
+    //     console.log(result);
+    //   });
       let notificationResetTimeOptions = {
         tag: 'overtimeAlertResetTime',
-        icon: 'assets/images/overtime.png',
+        icon: 'assets/icon.png',
         title: 'Horário de entrada apagado',
         body: 'ATÉ AMANHÃ!'
       }
-      new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
+      setTimeout(function(){
+        new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
+      }, 3000);
+      
     }
   }
 }
