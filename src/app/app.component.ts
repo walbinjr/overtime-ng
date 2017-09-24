@@ -88,7 +88,8 @@ export class AppComponent {
       console.log("chrome.extension");
       console.log(this.remainingClockOut.remainingTime.asMilliseconds());
       // chrome.extension.getBackgroundPage().clearTimers();
-      chrome.extension.getBackgroundPage().startNotificationTimer();
+      chrome.extension.getBackgroundPage().clearNotifications();
+      chrome.extension.getBackgroundPage().startNotificationTimer(this.remainingClockOut);
     } else if(chrome) {
     //   console.log("chrome.web");
     //   console.log(this.remainingClockOut);
