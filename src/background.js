@@ -17,7 +17,7 @@ function timeAsString(time) {
 function creationCallback(createdId) {
 	console.log('Criado: ' + createdId);
 }
-function clearTimers() {
+function clearNotifications() {
 	clearTimeout(alarmMin);
 	clearTimeout(alarmReg);
 	clearTimeout(alarmMax);

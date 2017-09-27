@@ -10,6 +10,15 @@ export class Clock {
   constructor(values: Object = {}) {
     Object.assign(this, values);
   }
+
+  // formatedJson() {
+  //   return {
+  //     minimumClockOut: moment(this.minimumClockOut).format('HH:mm'),
+  //     normalClockOut: moment(this.normalClockOut).format('HH:mm'),
+  //     maximumClockOut: moment(this.maximumClockOut).format('HH:mm'),
+  //     maximumExtraTime: moment(this.maximumExtraTime).format('HH:mm')
+  //   }
+  // }
 }
 
 export class ClockRemaining {
@@ -22,4 +31,13 @@ export class ClockRemaining {
   remainingTimeForMaximumExtraTime: moment.Duration;
   remainingTimeForMinimum: moment.Duration;
   remainingTimeForMaximum: moment.Duration;
+
+  formatedJson() {
+    return {
+      remainingTime: this.remainingTime.asMilliseconds(),
+      remainingTimeForMaximumExtraTime: this.remainingTimeForMaximumExtraTime.asMilliseconds(),
+      remainingTimeForMinimum: this.remainingTimeForMinimum.asMilliseconds(),
+      remainingTimeForMaximum: this.remainingTimeForMaximum.asMilliseconds()
+    }
+  }
 }

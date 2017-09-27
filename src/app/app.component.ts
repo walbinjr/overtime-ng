@@ -86,7 +86,8 @@ export class AppComponent {
   startClockChrome() {
     if(chrome && chrome.extension) {
       console.log("chrome.extension");
-      console.log(this.remainingClockOut.remainingTime.asMilliseconds());
+      // console.log(this.clock.formatedJson());
+      console.log(this.remainingClockOut.formatedJson());
       // chrome.extension.getBackgroundPage().clearTimers();
       chrome.extension.getBackgroundPage().clearNotifications();
       chrome.extension.getBackgroundPage().startNotificationTimer(this.remainingClockOut);
