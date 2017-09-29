@@ -41,6 +41,7 @@ export class AppComponent {
   loadSettings() {
     moment.locale('pt-br');
     if(this.settings.arrivedTime) {
+      console.log(moment(this.settings.arrivedTime));
       this.arrivedTime = moment(this.settings.arrivedTime).format('HH:mm');
       this.lastUpdateTime = moment(this.settings.lastUpdate).fromNow();
       this.loadClock();
@@ -74,10 +75,10 @@ export class AppComponent {
 
   loadClock() {
     this.clock = this.clockService.calculateClockInOut(this.settings);
-    this.normalClockOut = moment(this.clock.normalClockOut).format('HH:mm');
-    this.minimumClockOut = moment(this.clock.minimumClockOut).format('HH:mm');
-    this.maximumClockOut = moment(this.clock.maximumClockOut).format('HH:mm');
-    this.maximumExtraTime = moment(this.clock.maximumExtraTime).format('HH:mm');
+    this.normalClockOut = this.clock.formatedJson().normalClockOut;
+    this.minimumClockOut = this.clock.formatedJson().minimumClockOut;
+    this.maximumClockOut = this.clock.formatedJson().maximumClockOut;
+    this.maximumExtraTime = this.clock.formatedJson().maximumExtraTime;
     this.remainingClockOut = this.clockService.getRemainingClockOut();
     this.hasToleranceTime = parseInt(this.settings.toleranceTime) > 0;
     this.startClockChrome();
@@ -86,11 +87,10 @@ export class AppComponent {
   startClockChrome() {
     if(chrome && chrome.extension) {
       console.log("chrome.extension");
-      // console.log(this.clock.formatedJson());
+      console.log(this.clock.formatedJson());
       console.log(this.remainingClockOut.formatedJson());
-      // chrome.extension.getBackgroundPage().clearTimers();
       chrome.extension.getBackgroundPage().clearNotifications();
-      chrome.extension.getBackgroundPage().startNotificationTimer(this.remainingClockOut);
+      chrome.extension.getBackgroundPage().startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
     } else if(chrome) {
     //   console.log("chrome.web");
     //   console.log(this.remainingClockOut);

@@ -16,18 +16,14 @@ export class ClockService {
   }
 
   getClock(): Clock {
-    this.clock = JSON.parse(localStorage.getItem('clock'));
-
-    if( this.clock == null )
-      this.clock = new Clock();
-
+    this.clock = new Clock(JSON.parse(localStorage.getItem('clock')));
     return this.clock;
   }
 
   saveClock(clock: Clock): Clock {
     this.clock = clock;
     localStorage.setItem('clock', JSON.stringify(this.clock));
-    return clock;
+    return this.clock;
   }
 
   calculateClockInOut(settings: Settings): Clock {
@@ -65,7 +61,7 @@ export class ClockService {
     let text:string = '';
 
     if(timeToCalc.hours() > 0) {
-      text += timeToCalc.hours() + 'h';
+      text += timeToCalc.hours() + 'h ';
     }
 
     if(timeToCalc.minutes() > 0) {

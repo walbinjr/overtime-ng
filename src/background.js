@@ -2,141 +2,105 @@
 // Extensions that declare the notifications permission are always
 // allowed create notifications.
 
-// Create a simple text notification:
-var notificationRegularOptions, notificationMinOptions, notificationMaxOptions, notificationMaxExtraOptions, notificationResetTimeOptions,
-	notificationRegular, notificationMin, notificationMax, notificationMaxExtra, notificationResetTime,
-	alarm, alarmMin, alarmReg, alarmMax, alarmMaxExtra, alarmResetTime, alarmPerm;
+// Iniciando variaveis
+var notificationNormal,
+	notificationMinOptions,
+	notificationMaxOptions,
+	notificationMaxExtraOptions,
+	notificationResetTimeOptions,
+	alarmMin,
+	alarmNormal,
+	alarmMax,
+	alarmMaxExtra,
+	alarmResetTime;
 
-function twoDigits(string) {
-	var collection = ("00" + string).split("");
-	return collection[collection.length - 2] + collection[collection.length - 1];
-};
-function timeAsString(time) {
-	return time.getHours() + ":" + twoDigits(time.getMinutes());
-};
-function creationCallback(createdId) {
-	console.log('Criado: ' + createdId);
-}
+// Limpa notificacoes
 function clearNotifications() {
 	clearTimeout(alarmMin);
-	clearTimeout(alarmReg);
+	clearTimeout(alarmNormal);
 	clearTimeout(alarmMax);
 	clearTimeout(alarmMaxExtra);
 	clearTimeout(alarmResetTime);
-	clearTimeout(alarmPerm);
 }
-function startNotificationTimer(clockRemaining) {
-	console.log(clockRemaining.remainingTime.asMilliseconds());
+
+// Registra notificacoes
+function startNotificationTimer(clock, clockRemaining) {
+	if(clockRemaining.remainingTimeForMinimum >= 0)
+		showMin(clock.minimumClockOut, clockRemaining.remainingTimeForMinimum)
+
+	if(clockRemaining.remainingTime >= 0)
+		showNormal(clock.normalClockOut, clockRemaining.remainingTime)
+
+	if(clockRemaining.remainingTimeForMaximum >= 0)
+		showMax(clock.maximumClockOut, clockRemaining.remainingTimeForMaximum)
+
+	if(clockRemaining.remainingTimeForMaximumExtraTime >= 0)
+		showMaxExtra(clock.maximumExtraTime, clockRemaining.remainingTimeForMaximumExtraTime)
+}
+
+// Notificacoes
+function showMin(clockOut, remainingTime) {
 	notificationMinOptions = {
+		requireInteraction: true,
+		vibrate: [200, 100, 200],
 		tag: 'overtimeAlertMin',
 		icon: 'assets/icon.png',
-		title: '5min para o Horário Mínimo',
-		body: 'ARRUME SUAS COISAS!'
+		title: 'ARRUME SUAS COISAS!',
+		body: '5 MINUTOS para o HORÁRIO MÍNIMO\n' + clockOut
 	}
-	setTimeout(function(){
-		new Notification(notificationMinOptions.title, notificationMinOptions);
-	}, 3000);
+	alarmMin = setTimeout(function() {
+		new Notification(notificationMinOptions.title, notificationMinOptions)
+	}, remainingTime);
 }
-function startTimer(alarmRemains, minTime, regularTime, maxTime, maxTimeExtra, minutosExtraInMili) {
-	alarm = alarmRemains;
-	var fiveMinutes = (5 * 60 * 1000);
-	var twoHours = (120 * 60 * 1000);
-	var calcMin = alarm - minutosExtraInMili - fiveMinutes;
-	var calcReg = alarm - fiveMinutes;
-	var calcMax = alarm + minutosExtraInMili - fiveMinutes;
-	var calcMaxExtra = alarm + twoHours - fiveMinutes;
-	var calcResetTime = alarm + twoHours;
-	//alert(calcMin/1000/60 + " : " + calcReg/1000/60 + " : " + calcMax/1000/60 + " : " + calcMaxExtra/1000/60);
-	if(calcMin > 0 && minutosExtraInMili > 0) {
-		notificationMinOptions = {
-			tag: 'overtimeAlertMin',
-			icon: 'assets/images/overtime.png',
-			title: '5min para o Horário Mínimo: ' + minTime,
-			body: 'ARRUME SUAS COISAS!'
-		}
-		alarmMin = setTimeout(showMin, calcMin);
+function showNormal(clockOut, remainingTime) {
+	notificationNormalOptions = {
+		requireInteraction: true,
+		vibrate: [200, 100, 200],
+		tag: 'overtimeAlertNormal',
+		icon: 'assets/icon.png',
+		title: 'AINDA ESTÁ AQUI?',
+		body: '5 MINUTOS para o HORÁRIO NORMAL\n' + clockOut
 	}
-	
-	if(calcReg > 0) {
-		notificationRegularOptions = {
-			tag: 'overtimeAlertRegular',
-			icon: 'assets/images/overtime.png',
-			title: '5min para o Horário Normal: ' + regularTime,
-			body: 'AINDA ESTÁ AQUI?'
-		}
-		alarmReg = setTimeout(showRegular, calcReg);
+	alarmNormal = setTimeout(function() {
+		new Notification(notificationNormalOptions.title, notificationNormalOptions)
+	}, remainingTime);
+}
+function showMax(clockOut, remainingTime) {
+	notificationMaxOptions = {
+		requireInteraction: true,
+		vibrate: [200, 100, 200],
+		tag: 'overtimeAlertMax',
+		icon: 'assets/icon.png',
+		title: 'ÚLTIMO AVISO!',
+		body: '5 MINUTOS para o HORÁRIO MÁXIMO\n' + clockOut
 	}
-
-	if(calcMax > 0 && minutosExtraInMili > 0) {
-		notificationMaxOptions = {
-			tag: 'overtimeAlertMax',
-			icon: 'assets/images/overtime.png',
-			title: '5min para o Horário Máximo: ' + maxTime,
-			body: 'ÚLTIMO AVISO!'
-		}
-		alarmMax = setTimeout(showMax, calcMax);
+	alarmMax = setTimeout(function() {
+		new Notification(notificationMaxOptions.title, notificationMaxOptions)
+	}, remainingTime);
+}
+function showMaxExtra(clockOut, remainingTime) {
+	notificationMaxExtraOptions = {
+		requireInteraction: true,
+		vibrate: [200, 100, 200],
+		tag: 'overtimeAlertMaxExtra',
+		icon: 'assets/icon.png',
+		title: 'AGORA É POR SUA CONTA E RISCO!',
+		body: '5 MINUTOS para o MÁXIMO DE EXTRA\n' + clockOut
 	}
-
-	if(calcMaxExtra > 0) {
-		notificationMaxExtraOptions = {
-			tag: 'overtimeAlertMaxExtra',
-			icon: 'assets/images/overtime.png',
-			title: '5min para o Máximo de Extra: ' + maxTimeExtra,
-			body: 'AGORA É POR SUA CONTA E RISCO!'
-		}
-		alarmMaxExtra = setTimeout(showMaxExtra, calcMaxExtra);
+	alarmMaxExtra = setTimeout(function() {
+		new Notification(notificationMaxExtraOptions.title, notificationMaxExtraOptions)
+	}, remainingTime);
+}
+function showResetTime(clockOut, remainingTime) {
+	notificationResetTimeOptions = {
+		requireInteraction: true,
+		vibrate: [200, 100, 200],
+		tag: 'overtimeAlertResetTime',
+		icon: 'assets/icon.png',
+		title: 'ATENÇÃO!',
+		body: 'Horário de entrada apagado\n' + clockOut
 	}
-
-	if(calcResetTime > 0) {
-		notificationResetTimeOptions = {
-			tag: 'overtimeAlertResetTime',
-			icon: 'assets/images/overtime.png',
-			title: 'Horário de entrada apagado',
-			body: 'ATÉ AMANHÃ!'
-		}
-		alarmResetTime = setTimeout(showResetTime, calcResetTime);
-	}
-
-	//alarmPerm = setTimeout(updateBadge, 60000); // 1 min
-}
-
-// Then show the notification.
-function showMin(){
-	notificationMin = new Notification(notificationMinOptions.title, notificationMinOptions);
-	clearTimeout(alarmMin);
-}
-function showRegular(){
-	notificationMin.close();
-	notificationRegular = new Notification(notificationRegularOptions.title, notificationRegularOptions);
-	clearTimeout(alarmReg);
-}
-function showMax(){
-	notificationRegular.close();
-	notificationMax = new Notification(notificationMaxOptions.title, notificationMaxOptions);
-	clearTimeout(alarmMax);
-}
-function showMaxExtra(){
-	notificationMax.close();
-	notificationMaxExtra = new Notification(notificationMaxExtraOptions.title, notificationMaxExtraOptions);
-	clearTimeout(alarmMaxExtra);
-}
-function showResetTime(){
-	notificationMaxExtra.close();
-	window.localStorage.removeItem('time');
-	chrome.browserAction.setBadgeText({ text: '' });
-	notificationResetTime = new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
-	clearTimeout(alarmResetTime);
-}
-function updateBadge(){
-	var remaining = (alarm - (10 * 60 * 1000)) - (1 * 60 * 1000);
-
-	if( remaining > -1800000 ) {
-		var timeBadge = new Date();
-		timeBadge.setHours(0,0);
-		timeBadge = new Date(timeBadge.getTime() + remaining);
-
-		chrome.browserAction.setBadgeText({ text: timeAsString(timeBadge) });
-	} else {
-		clearTimeout(alarmPerm);
-	}
+	alarmResetTime = setTimeout(function() {
+		new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions)
+	}, remainingTime);
 }

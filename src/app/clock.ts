@@ -11,14 +11,14 @@ export class Clock {
     Object.assign(this, values);
   }
 
-  // formatedJson() {
-  //   return {
-  //     minimumClockOut: moment(this.minimumClockOut).format('HH:mm'),
-  //     normalClockOut: moment(this.normalClockOut).format('HH:mm'),
-  //     maximumClockOut: moment(this.maximumClockOut).format('HH:mm'),
-  //     maximumExtraTime: moment(this.maximumExtraTime).format('HH:mm')
-  //   }
-  // }
+  formatedJson() {
+    return {
+      minimumClockOut: moment(this.minimumClockOut).format('HH:mm'),
+      normalClockOut: moment(this.normalClockOut).format('HH:mm'),
+      maximumClockOut: moment(this.maximumClockOut).format('HH:mm'),
+      maximumExtraTime: moment(this.maximumExtraTime).format('HH:mm')
+    }
+  }
 }
 
 export class ClockRemaining {
