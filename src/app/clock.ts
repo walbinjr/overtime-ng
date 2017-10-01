@@ -34,6 +34,7 @@ export class ClockRemaining {
 
   formatedJson() {
     return {
+      notificationTimeBefore: moment.duration(5, 'minutes').asMilliseconds(),
       remainingTime: this.remainingTime.asMilliseconds(),
       remainingTimeForMaximumExtraTime: this.remainingTimeForMaximumExtraTime.asMilliseconds(),
       remainingTimeForMinimum: this.remainingTimeForMinimum.asMilliseconds(),

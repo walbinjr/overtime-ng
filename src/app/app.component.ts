@@ -4,6 +4,7 @@ import { Settings } from './settings';
 import { SettingsDataService } from './settings-data.service';
 import { Clock } from './clock';
 import { ClockService } from './clock.service';
+import { NotificationService } from './notification.service';
 
 import * as moment from 'moment';
 
@@ -14,7 +15,7 @@ declare var chrome;
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SettingsDataService, ClockService]
+  providers: [SettingsDataService, ClockService, NotificationService]
 })
 export class AppComponent {
   showSettings: boolean = false;
@@ -32,7 +33,7 @@ export class AppComponent {
   hasToleranceTime: boolean = false;
   hasSaturdayHoliday: boolean = false;
 
-  constructor(private settingsDataService: SettingsDataService, private clockService: ClockService) {
+  constructor(private settingsDataService: SettingsDataService, private clockService: ClockService, private notificationService: NotificationService) {
     this.settings = this.settingsDataService.getSettings();
     this.clock = this.clockService.getClock();
     this.loadSettings();
@@ -41,7 +42,6 @@ export class AppComponent {
   loadSettings() {
     moment.locale('pt-br');
     if(this.settings.arrivedTime) {
-      console.log(moment(this.settings.arrivedTime));
       this.arrivedTime = moment(this.settings.arrivedTime).format('HH:mm');
       this.lastUpdateTime = moment(this.settings.lastUpdate).fromNow();
       this.loadClock();
@@ -58,7 +58,13 @@ export class AppComponent {
   }
 
   saveArrivedTime() {
-    this.settings.arrivedTime = moment(this.arrivedTime,'HH:mm').valueOf();
+    let arrived = moment(this.arrivedTime,'HH:mm');
+    let isFuture = (moment().diff(arrived) < 0) ? true : false;
+    // Para corrigir bug na notificacao de quem entra depois das 16h
+    if(isFuture) {
+      arrived.subtract(1, 'day');
+    }
+    this.settings.arrivedTime = arrived.valueOf();
     this.saveSettings();
   }
 
@@ -85,27 +91,34 @@ export class AppComponent {
   }
 
   startClockChrome() {
+    // console.log(this.clock.formatedJson());
+    // console.log(this.clock);
+    console.log(this.remainingClockOut.formatedJson());
+    // console.log(this.remainingClockOut);
     if(chrome && chrome.extension) {
       console.log("chrome.extension");
       console.log(this.clock.formatedJson());
+      console.log(this.clock);
       console.log(this.remainingClockOut.formatedJson());
+      console.log(this.remainingClockOut);
       chrome.extension.getBackgroundPage().clearNotifications();
       chrome.extension.getBackgroundPage().startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
     } else if(chrome) {
     //   console.log("chrome.web");
     //   console.log(this.remainingClockOut);
-    //   Notification.requestPermission().then(function(result) {
-    //     console.log(result);
-    //   });
-      let notificationResetTimeOptions = {
-        tag: 'overtimeAlertResetTime',
-        icon: 'assets/icon.png',
-        title: 'Horário de entrada apagado',
-        body: 'ATÉ AMANHÃ!'
-      }
-      setTimeout(function(){
-        new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
-      }, 3000);
+      Notification.requestPermission().then(function(result) {
+        console.log(result);
+      });
+      this.notificationService.startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
+      // let notificationResetTimeOptions = {
+      //   tag: 'overtimeAlertResetTime',
+      //   icon: 'assets/icon.png',
+      //   title: 'Horário de entrada apagado',
+      //   body: 'ATÉ AMANHÃ!'
+      // }
+      // setTimeout(function(){
+      //   new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
+      // }, 3000);
       
     }
   }

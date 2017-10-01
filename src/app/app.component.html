@@ -9,7 +9,7 @@
     </div>
 
     <div class="card-header bg-danger" *ngIf="!remainingClockOut.remainingTimeEnabled && lastUpdateTime != ''">
-      <strong class="has-danger form-control-danger text-white">Horário definido há {{lastUpdateTime}}!</strong>
+      <strong class="has-danger form-control-danger text-white">Horário definido {{lastUpdateTime}}!</strong>
     </div>
 
     <form class="card-block bg-faded pb-0" #clockForm="ngForm" (submit)="saveArrivedTime()">

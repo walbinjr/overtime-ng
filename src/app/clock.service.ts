@@ -41,7 +41,8 @@ export class ClockService {
     let clockOut: moment.Moment = moment(this.clock.normalClockOut);
     let tolerance: moment.Duration = moment.duration(parseInt(this.settings.toleranceTime), 'minutes');
 
-    this.clockRemaining.remainingTime = moment.duration(clockOut.diff(moment()));
+    // 'moment().second(59)' para setar hora cheia
+    this.clockRemaining.remainingTime = moment.duration(clockOut.diff(moment().second(59)));
     this.clockRemaining.remainingTimeForMaximumExtraTime = moment.duration(this.clockRemaining.remainingTime).add(moment.duration(2, 'hours'));
     this.clockRemaining.remainingTimeForMinimum = moment.duration(this.clockRemaining.remainingTime).subtract(tolerance);
     this.clockRemaining.remainingTimeForMaximum = moment.duration(this.clockRemaining.remainingTime).add(tolerance);

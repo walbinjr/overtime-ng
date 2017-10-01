@@ -3,12 +3,8 @@
 // allowed create notifications.
 
 // Iniciando variaveis
-var notificationNormal,
-	notificationMinOptions,
-	notificationMaxOptions,
-	notificationMaxExtraOptions,
-	notificationResetTimeOptions,
-	alarmMin,
+
+var alarmMin,
 	alarmNormal,
 	alarmMax,
 	alarmMaxExtra,
@@ -25,17 +21,21 @@ function clearNotifications() {
 
 // Registra notificacoes
 function startNotificationTimer(clock, clockRemaining) {
-	if(clockRemaining.remainingTimeForMinimum >= 0)
-		showMin(clock.minimumClockOut, clockRemaining.remainingTimeForMinimum)
+  var remainingMin = clockRemaining.remainingTimeForMinimum - clockRemaining.notificationTimeBefore;
+  if(remainingMin >= 0)
+		showMin(clock.minimumClockOut, remainingMin);
 
-	if(clockRemaining.remainingTime >= 0)
-		showNormal(clock.normalClockOut, clockRemaining.remainingTime)
+  var remainingNormal = clockRemaining.remainingTime - clockRemaining.notificationTimeBefore;
+  if(remainingNormal >= 0)
+		showNormal(clock.normalClockOut, remainingNormal);
 
-	if(clockRemaining.remainingTimeForMaximum >= 0)
-		showMax(clock.maximumClockOut, clockRemaining.remainingTimeForMaximum)
+  var remainingMax = clockRemaining.remainingTimeForMaximum - clockRemaining.notificationTimeBefore;
+  if(remainingMax >= 0)
+		showMax(clock.maximumClockOut, remainingMax);
 
-	if(clockRemaining.remainingTimeForMaximumExtraTime >= 0)
-		showMaxExtra(clock.maximumExtraTime, clockRemaining.remainingTimeForMaximumExtraTime)
+  var remainingMaxExtra = clockRemaining.remainingTimeForMaximumExtraTime - clockRemaining.notificationTimeBefore;
+  if(remainingMaxExtra >= 0)
+		showMaxExtra(clock.maximumExtraTime, remainingMaxExtra);
 }
 
 // Notificacoes
@@ -49,7 +49,7 @@ function showMin(clockOut, remainingTime) {
 		body: '5 MINUTOS para o HORÁRIO MÍNIMO\n' + clockOut
 	}
 	alarmMin = setTimeout(function() {
-		new Notification(notificationMinOptions.title, notificationMinOptions)
+		new Notification(notificationMinOptions.title, notificationMinOptions);
 	}, remainingTime);
 }
 function showNormal(clockOut, remainingTime) {
@@ -62,7 +62,7 @@ function showNormal(clockOut, remainingTime) {
 		body: '5 MINUTOS para o HORÁRIO NORMAL\n' + clockOut
 	}
 	alarmNormal = setTimeout(function() {
-		new Notification(notificationNormalOptions.title, notificationNormalOptions)
+		new Notification(notificationNormalOptions.title, notificationNormalOptions);
 	}, remainingTime);
 }
 function showMax(clockOut, remainingTime) {
@@ -75,7 +75,7 @@ function showMax(clockOut, remainingTime) {
 		body: '5 MINUTOS para o HORÁRIO MÁXIMO\n' + clockOut
 	}
 	alarmMax = setTimeout(function() {
-		new Notification(notificationMaxOptions.title, notificationMaxOptions)
+		new Notification(notificationMaxOptions.title, notificationMaxOptions);
 	}, remainingTime);
 }
 function showMaxExtra(clockOut, remainingTime) {
@@ -88,7 +88,7 @@ function showMaxExtra(clockOut, remainingTime) {
 		body: '5 MINUTOS para o MÁXIMO DE EXTRA\n' + clockOut
 	}
 	alarmMaxExtra = setTimeout(function() {
-		new Notification(notificationMaxExtraOptions.title, notificationMaxExtraOptions)
+		new Notification(notificationMaxExtraOptions.title, notificationMaxExtraOptions);
 	}, remainingTime);
 }
 function showResetTime(clockOut, remainingTime) {
@@ -101,6 +101,6 @@ function showResetTime(clockOut, remainingTime) {
 		body: 'Horário de entrada apagado\n' + clockOut
 	}
 	alarmResetTime = setTimeout(function() {
-		new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions)
+		new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
 	}, remainingTime);
 }
