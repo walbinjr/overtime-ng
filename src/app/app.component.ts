@@ -106,7 +106,7 @@ export class AppComponent {
     } else {
     //   console.log("chrome.web");
     //   console.log(this.remainingClockOut);
-      Notification.requestPermission().then(function(result) {
+      Notification.requestPermission().then((result) => {
         // console.log(result);
         if(result == 'granted') {
           this.notificationService.startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
