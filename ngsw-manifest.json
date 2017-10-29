@@ -1,0 +1,18 @@
+{
+  "static": {
+    "urls": {
+      "/polyfills.0963b44a58b5526cfab7.bundle.js": "3d4f12826bbd9ad3b68fe171efb7343d5aaa74c2",
+      "/scripts.657a1200895ceb1c033d.bundle.js": "4fd493472f92e23eba790572356d6e695f47f570",
+      "/main.e6157f6aac2c40a3afb0.bundle.js": "b159763416bc755af35979d7655df06c63b6280d",
+      "/sw-register.cf1225e2f81be1647047.bundle.js": "ae0b3d4560b71df13d691aff539a3ca9182dcf2b",
+      "/vendor.963d470d62412f06f707.bundle.js": "2fe5a8c51d0550976ae4e7bbdafe0aa073a901f4",
+      "/inline.e9e418d7aafc189546a3.bundle.js": "15c2b473d72dad3d40af2ed23a15b3b7e4ed3cc7",
+      "/styles.3b8eebcecec9ee34cb28.bundle.css": "b88090144d0956037430cda3e5dc6f116184c7f3",
+      "/assets/icon.png": "95ab41edf017c81f8d97f0ae3976096b420c3038",
+      "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+      "/manifest.json": "efddbf9007d98823dc42fb23fff30ad7b7c6c8c2",
+      "/index.html": "ddcaa0ac92cb4c38a5bdd91cad1345c53e064d1a"
+    },
+    "_generatedFromWebpack": true
+  }
+}

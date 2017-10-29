@@ -1,27 +1,16 @@
 {
-    "manifest_version": 2,
-    "name": "Time to go!",
-    "description": "Calcule a hora de ir embora!",
-    "version": "4.0",
-    "icons": {
-        "16": "assets/icon.png",
-        "48": "assets/icon.png",
-        "128": "assets/icon.png"
-    },
-    "browser_action": {
-        "default_icon": "assets/icon.png",
-        "default_popup": "index.html"
-    },
-    "background": {
-        "scripts": ["background.js"]
-    },
-    "web_accessible_resources": [
-        "assets/css/*",
-        "assets/js/*",
-        "assets/fonts/*"
+    "short_name": "TimeToGo",
+    "name": "Time To Go! - Calcule a hora de ir embora.",
+    "start_url": "index.html?launcher=true",
+    "icons": [
+        {
+            "src": "assets/icon.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        }
     ],
-    "permissions": [
-        "notifications"
-    ],
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+    "background_color": "#2196F3",
+    "theme_color": "#2196F3",
+    "orientation": "portrait",
+    "display": "standalone"
 }
