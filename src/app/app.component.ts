@@ -93,23 +93,25 @@ export class AppComponent {
   startClockChrome() {
     // console.log(this.clock.formatedJson());
     // console.log(this.clock);
-    console.log(this.remainingClockOut.formatedJson());
+    // console.log(this.remainingClockOut.formatedJson());
     // console.log(this.remainingClockOut);
     if(chrome && chrome.extension) {
-      console.log("chrome.extension");
-      console.log(this.clock.formatedJson());
-      console.log(this.clock);
-      console.log(this.remainingClockOut.formatedJson());
-      console.log(this.remainingClockOut);
+      // console.log("chrome.extension");
+      // console.log(this.clock.formatedJson());
+      // console.log(this.clock);
+      // console.log(this.remainingClockOut.formatedJson());
+      // console.log(this.remainingClockOut);
       chrome.extension.getBackgroundPage().clearNotifications();
       chrome.extension.getBackgroundPage().startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
-    } else if(chrome) {
+    } else {
     //   console.log("chrome.web");
     //   console.log(this.remainingClockOut);
       Notification.requestPermission().then(function(result) {
-        console.log(result);
+        // console.log(result);
+        if(result == 'granted') {
+          this.notificationService.startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
+        }
       });
-      this.notificationService.startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
       // let notificationResetTimeOptions = {
       //   tag: 'overtimeAlertResetTime',
       //   icon: 'assets/icon.png',

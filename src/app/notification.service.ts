@@ -49,7 +49,8 @@ export class NotificationService {
       body: '5 MINUTOS para o HORÁRIO MÍNIMO\n' + clockOut
     }
     this.alarmMin = setTimeout(function() {
-      new Notification(notificationMinOptions.title, notificationMinOptions);
+      var n = new Notification(notificationMinOptions.title, notificationMinOptions);
+      setTimeout(n.close.bind(n), 300000);
     }, remainingTime);
   }
 
@@ -63,7 +64,8 @@ export class NotificationService {
       body: '5 MINUTOS para o HORÁRIO NORMAL\n' + clockOut
     }
     this.alarmNormal = setTimeout(function() {
-      new Notification(notificationNormalOptions.title, notificationNormalOptions);
+      var n = new Notification(notificationNormalOptions.title, notificationNormalOptions);
+      setTimeout(n.close.bind(n), 300000);
     }, remainingTime);
   }
   showMax(clockOut, remainingTime) {
@@ -76,7 +78,8 @@ export class NotificationService {
       body: '5 MINUTOS para o HORÁRIO MÁXIMO\n' + clockOut
     }
     this.alarmMax = setTimeout(function() {
-      new Notification(notificationMaxOptions.title, notificationMaxOptions);
+      var n = new Notification(notificationMaxOptions.title, notificationMaxOptions);
+      setTimeout(n.close.bind(n), 300000);
     }, remainingTime);
   }
   showMaxExtra(clockOut, remainingTime) {
@@ -89,7 +92,8 @@ export class NotificationService {
       body: '5 MINUTOS para o MÁXIMO DE EXTRA\n' + clockOut
     }
     this.alarmMaxExtra = setTimeout(function() {
-      new Notification(notificationMaxExtraOptions.title, notificationMaxExtraOptions);
+      var n = new Notification(notificationMaxExtraOptions.title, notificationMaxExtraOptions);
+      setTimeout(n.close.bind(n), 300000);
     }, remainingTime);
   }
   showResetTime(clockOut, remainingTime) {
@@ -102,7 +106,8 @@ export class NotificationService {
       body: 'Horário de entrada apagado\n' + clockOut
     }
     this.alarmResetTime = setTimeout(function() {
-      new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
+      var n = new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
+      setTimeout(n.close.bind(n), 300000);
     }, remainingTime);
   }
 
