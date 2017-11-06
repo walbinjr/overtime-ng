@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { NgxMaskModule } from 'ngx-mask';
@@ -20,7 +21,8 @@ import { TimeValidatorDirective } from './time-validator.directive';
       prefix: 'app',
       storageType: 'localStorage'
     }),
-    NgxMaskModule
+    NgxMaskModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

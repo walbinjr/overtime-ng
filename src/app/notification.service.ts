@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class NotificationService {
@@ -8,7 +9,7 @@ export class NotificationService {
   alarmMaxExtra;
   alarmResetTime;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   // Limpa notificacoes
   clearNotifications() {
@@ -48,7 +49,24 @@ export class NotificationService {
       title: 'ARRUME SUAS COISAS!',
       body: '5 MINUTOS para o HORÁRIO MÍNIMO\n' + clockOut
     }
-    this.alarmMin = setTimeout(function() {
+    this.alarmMin = setTimeout(() => {
+      // let body = {"channel":"@wbindilatti","username":"HORÁRIO MÍNIMO","text":"VAI EMBORA!!!!!","icon_emoji":":alarm_clock:"}
+      // this.http.post("https://hooks.slack.com/services/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",
+      //   'payload=' + JSON.stringify(body), {headers: new HttpHeaders('Content-Type: application/x-www-form-urlencoded')})
+      // .subscribe(
+      //   res => {
+      //     console.log(res);
+      //   },
+      //   err => {
+      //     console.log("Error occured");
+      //   }
+      // );
+
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+        if(reg)
+          reg.showNotification(notificationMinOptions.title, notificationMinOptions);
+      });
+
       var n = new Notification(notificationMinOptions.title, notificationMinOptions);
       setTimeout(n.close.bind(n), 300000);
     }, remainingTime);
@@ -64,6 +82,11 @@ export class NotificationService {
       body: '5 MINUTOS para o HORÁRIO NORMAL\n' + clockOut
     }
     this.alarmNormal = setTimeout(function() {
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+        if(reg)
+          reg.showNotification(notificationNormalOptions.title, notificationNormalOptions);
+      });
+
       var n = new Notification(notificationNormalOptions.title, notificationNormalOptions);
       setTimeout(n.close.bind(n), 300000);
     }, remainingTime);
@@ -78,6 +101,11 @@ export class NotificationService {
       body: '5 MINUTOS para o HORÁRIO MÁXIMO\n' + clockOut
     }
     this.alarmMax = setTimeout(function() {
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+        if(reg)
+          reg.showNotification(notificationMaxOptions.title, notificationMaxOptions);
+      });
+
       var n = new Notification(notificationMaxOptions.title, notificationMaxOptions);
       setTimeout(n.close.bind(n), 300000);
     }, remainingTime);
@@ -92,6 +120,11 @@ export class NotificationService {
       body: '5 MINUTOS para o MÁXIMO DE EXTRA\n' + clockOut
     }
     this.alarmMaxExtra = setTimeout(function() {
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+        if(reg)
+          reg.showNotification(notificationMaxExtraOptions.title, notificationMaxExtraOptions);
+      });
+
       var n = new Notification(notificationMaxExtraOptions.title, notificationMaxExtraOptions);
       setTimeout(n.close.bind(n), 300000);
     }, remainingTime);
@@ -106,6 +139,11 @@ export class NotificationService {
       body: 'Horário de entrada apagado\n' + clockOut
     }
     this.alarmResetTime = setTimeout(function() {
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+        if(reg)
+          reg.showNotification(notificationResetTimeOptions.title, notificationResetTimeOptions);
+      });
+
       var n = new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
       setTimeout(n.close.bind(n), 300000);
     }, remainingTime);

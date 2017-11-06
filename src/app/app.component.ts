@@ -109,6 +109,15 @@ export class AppComponent {
       Notification.requestPermission().then((result) => {
         // console.log(result);
         if(result == 'granted') {
+          // navigator.serviceWorker.getRegistration().then(function(reg) {
+          //   reg.showNotification('Vibration Sample', {
+          //     body: 'Buzz! Buzz!',
+          //     badge: 'assets/icon.png',
+          //     icon: 'assets/icon.png',
+          //     vibrate: [200, 100, 200, 100, 200, 100, 200],
+          //     tag: 'vibration-sample'
+          //   });
+          // });
           this.notificationService.startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
         }
       });
@@ -121,7 +130,7 @@ export class AppComponent {
       // setTimeout(function(){
       //   new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
       // }, 3000);
-      
+
     }
   }
 }
