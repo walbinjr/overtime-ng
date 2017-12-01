@@ -20,18 +20,22 @@ function clearNotifications() {
 }
 
 // Registra notificacoes
-function startNotificationTimer(clock, clockRemaining) {
-  var remainingMin = clockRemaining.remainingTimeForMinimum - clockRemaining.notificationTimeBefore;
-  if(remainingMin >= 0)
-		showMin(clock.minimumClockOut, remainingMin);
+function startNotificationTimer(clock, clockRemaining, hasToleranceTime) {
+	if(hasToleranceTime) {
+	  var remainingMin = clockRemaining.remainingTimeForMinimum - clockRemaining.notificationTimeBefore;
+	  if(remainingMin >= 0)
+			showMin(clock.minimumClockOut, remainingMin);
+	}
 
   var remainingNormal = clockRemaining.remainingTime - clockRemaining.notificationTimeBefore;
   if(remainingNormal >= 0)
 		showNormal(clock.normalClockOut, remainingNormal);
 
-  var remainingMax = clockRemaining.remainingTimeForMaximum - clockRemaining.notificationTimeBefore;
-  if(remainingMax >= 0)
-		showMax(clock.maximumClockOut, remainingMax);
+	if(hasToleranceTime) {
+	  var remainingMax = clockRemaining.remainingTimeForMaximum - clockRemaining.notificationTimeBefore;
+	  if(remainingMax >= 0)
+			showMax(clock.maximumClockOut, remainingMax);
+	}
 
   var remainingMaxExtra = clockRemaining.remainingTimeForMaximumExtraTime - clockRemaining.notificationTimeBefore;
   if(remainingMaxExtra >= 0)

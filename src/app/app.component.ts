@@ -91,18 +91,18 @@ export class AppComponent {
   }
 
   startClockChrome() {
-    // console.log(this.clock.formatedJson());
+    console.log(this.clock.formatedJson());
     // console.log(this.clock);
-    // console.log(this.remainingClockOut.formatedJson());
+    console.log(this.remainingClockOut.formatedJson());
     // console.log(this.remainingClockOut);
-    if(chrome && chrome.extension) {
+    if( typeof chrome !== 'undefined' && chrome.extension) {
       // console.log("chrome.extension");
       // console.log(this.clock.formatedJson());
       // console.log(this.clock);
       // console.log(this.remainingClockOut.formatedJson());
       // console.log(this.remainingClockOut);
       chrome.extension.getBackgroundPage().clearNotifications();
-      chrome.extension.getBackgroundPage().startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
+      chrome.extension.getBackgroundPage().startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson(), this.hasToleranceTime);
     } else {
     //   console.log("chrome.web");
     //   console.log(this.remainingClockOut);
@@ -118,7 +118,8 @@ export class AppComponent {
           //     tag: 'vibration-sample'
           //   });
           // });
-          this.notificationService.startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson());
+          this.notificationService.clearNotifications();
+          this.notificationService.startNotificationTimer(this.clock.formatedJson(), this.remainingClockOut.formatedJson(), this.hasToleranceTime);
         }
       });
       // let notificationResetTimeOptions = {

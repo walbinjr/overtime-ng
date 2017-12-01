@@ -21,18 +21,22 @@ export class NotificationService {
   }
 
   // Registra notificacoes
-  startNotificationTimer(clock, clockRemaining) {
-    let remainingMin = clockRemaining.remainingTimeForMinimum - clockRemaining.notificationTimeBefore;
-    if(remainingMin >= 0)
-      this.showMin(clock.minimumClockOut, remainingMin);
+  startNotificationTimer(clock, clockRemaining, hasToleranceTime) {
+    if(hasToleranceTime) {
+      let remainingMin = clockRemaining.remainingTimeForMinimum - clockRemaining.notificationTimeBefore;
+      if(remainingMin >= 0)
+        this.showMin(clock.minimumClockOut, remainingMin);
+    }
 
     let remainingNormal = clockRemaining.remainingTime - clockRemaining.notificationTimeBefore;
     if(remainingNormal >= 0)
       this.showNormal(clock.normalClockOut, remainingNormal);
 
-    let remainingMax = clockRemaining.remainingTimeForMaximum - clockRemaining.notificationTimeBefore;
-    if(remainingMax >= 0)
-      this.showMax(clock.maximumClockOut, remainingMax);
+    if(hasToleranceTime) {
+      let remainingMax = clockRemaining.remainingTimeForMaximum - clockRemaining.notificationTimeBefore;
+      if(remainingMax >= 0)
+        this.showMax(clock.maximumClockOut, remainingMax);
+    }
 
     let remainingMaxExtra = clockRemaining.remainingTimeForMaximumExtraTime - clockRemaining.notificationTimeBefore;
     if(remainingMaxExtra >= 0)
@@ -62,10 +66,12 @@ export class NotificationService {
       //   }
       // );
 
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-        if(reg)
-          reg.showNotification(notificationMinOptions.title, notificationMinOptions);
-      });
+      if(typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.getRegistration().then(function(reg) {
+          if(reg)
+            reg.showNotification(notificationMinOptions.title, notificationMinOptions);
+        });
+      }
 
       var n = new Notification(notificationMinOptions.title, notificationMinOptions);
       setTimeout(n.close.bind(n), 300000);
@@ -81,11 +87,13 @@ export class NotificationService {
       title: 'AINDA ESTÁ AQUI?',
       body: '5 MINUTOS para o HORÁRIO NORMAL\n' + clockOut
     }
-    this.alarmNormal = setTimeout(function() {
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-        if(reg)
-          reg.showNotification(notificationNormalOptions.title, notificationNormalOptions);
-      });
+    this.alarmNormal = setTimeout(() => {
+      if(typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.getRegistration().then(function(reg) {
+          if(reg)
+            reg.showNotification(notificationNormalOptions.title, notificationNormalOptions);
+        });
+      }
 
       var n = new Notification(notificationNormalOptions.title, notificationNormalOptions);
       setTimeout(n.close.bind(n), 300000);
@@ -100,11 +108,13 @@ export class NotificationService {
       title: 'ÚLTIMO AVISO!',
       body: '5 MINUTOS para o HORÁRIO MÁXIMO\n' + clockOut
     }
-    this.alarmMax = setTimeout(function() {
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-        if(reg)
-          reg.showNotification(notificationMaxOptions.title, notificationMaxOptions);
-      });
+    this.alarmMax = setTimeout(() => {
+      if(typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.getRegistration().then(function(reg) {
+          if(reg)
+            reg.showNotification(notificationMaxOptions.title, notificationMaxOptions);
+        });
+      }
 
       var n = new Notification(notificationMaxOptions.title, notificationMaxOptions);
       setTimeout(n.close.bind(n), 300000);
@@ -119,11 +129,13 @@ export class NotificationService {
       title: 'AGORA É POR SUA CONTA E RISCO!',
       body: '5 MINUTOS para o MÁXIMO DE EXTRA\n' + clockOut
     }
-    this.alarmMaxExtra = setTimeout(function() {
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-        if(reg)
-          reg.showNotification(notificationMaxExtraOptions.title, notificationMaxExtraOptions);
-      });
+    this.alarmMaxExtra = setTimeout(() => {
+      if(typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.getRegistration().then(function(reg) {
+          if(reg)
+            reg.showNotification(notificationMaxExtraOptions.title, notificationMaxExtraOptions);
+        });
+      }
 
       var n = new Notification(notificationMaxExtraOptions.title, notificationMaxExtraOptions);
       setTimeout(n.close.bind(n), 300000);
@@ -138,11 +150,13 @@ export class NotificationService {
       title: 'ATENÇÃO!',
       body: 'Horário de entrada apagado\n' + clockOut
     }
-    this.alarmResetTime = setTimeout(function() {
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-        if(reg)
-          reg.showNotification(notificationResetTimeOptions.title, notificationResetTimeOptions);
-      });
+    this.alarmResetTime = setTimeout(() => {
+      if(typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.getRegistration().then(function(reg) {
+          if(reg)
+            reg.showNotification(notificationResetTimeOptions.title, notificationResetTimeOptions);
+        });
+      }
 
       var n = new Notification(notificationResetTimeOptions.title, notificationResetTimeOptions);
       setTimeout(n.close.bind(n), 300000);
