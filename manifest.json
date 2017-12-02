@@ -1,6 +1,6 @@
 {
-    "short_name": "TimeToGo",
-    "name": "Time To Go! - Calcule a hora de ir embora.",
+    "short_name": "Time to Go",
+    "name": "Time To Go!",
     "start_url": "index.html?launcher=true",
     "icons": [
         {
